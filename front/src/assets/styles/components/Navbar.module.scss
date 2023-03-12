@@ -1,0 +1,18 @@
+@import "../../base/global";
+.nav {
+  background-color: $blueSpanish;
+}
+.contenedor-nav {
+  display: flex;
+  justify-content: space-between;
+}
+.logoNav {
+  width: 100px;
+  padding: 0px 20px;
+}
+.logOut {
+  cursor: pointer;
+  font-size: 3em;
+  color: $white;
+  margin: 5px 10px;
+}

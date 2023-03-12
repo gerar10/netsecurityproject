@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "email": "fravega@gmail.com",
+    "password": "123456489",
+    "cuit": "12-452389-9",
+    "razon_social": "fravega",
+    "direccion": "avenida san martin 123",
+    "fecha_inicio_contrato": "01/03/2015",
+    "fecha_fin_contrato": "01/03/2025",
+    "super_admin": false
+  },
+  {
+    "id": 2,
+    "email": "mercadolibre@gmail.com",
+    "password": "123456489",
+    "cuit": "17-456849-8",
+    "razon_social": "mercadoLibre",
+    "direccion": "avenida jose hernandez 123",
+    "fecha_inicio_contrato": "01/03/2015",
+    "fecha_fin_contrato": "01/03/2025",
+    "super_admin": false
+  },
+  {
+    "id": 3,
+    "email": "facebook@gmail.com",
+    "password": "123456489",
+    "cuit": "15-457856-3",
+    "razon_social": "facebook",
+    "direccion": "avenida arias 123",
+    "fecha_inicio_contrato": "01/03/2015",
+    "fecha_fin_contrato": "01/03/2025",
+    "super_admin": false
+  },
+  {
+    "id": 1,
+    "email": "samsung@gmail.com",
+    "password": "123456489",
+    "cuit": "19-912873-4",
+    "razon_social": "samsung",
+    "direccion": "avenida circumvalacion 123",
+    "fecha_inicio_contrato": "01/03/2015",
+    "fecha_fin_contrato": "01/03/2025",
+    "super_admin": false
+  }
+]

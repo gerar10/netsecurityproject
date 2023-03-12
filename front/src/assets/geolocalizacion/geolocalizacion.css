@@ -1,0 +1,8 @@
+#map {
+  height: 100vh;
+}
+
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
+}
