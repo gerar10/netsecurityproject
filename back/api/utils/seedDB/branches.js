@@ -12,6 +12,15 @@ const branches = [
     clientId: 2,
   },
   {
+    name: "Sucursal Pilar",
+    street: "Pedro Lagrave",
+    number: 574,
+    city: "Pilar",
+    province: "Buenos Aires",
+    postalcode: "B1629",
+    clientId: 2,
+  },
+  {
     name: "Sucursal Alto Rosario Shopping",
     street: "Junin",
     number: 398,
@@ -137,7 +146,7 @@ const branches = [
     postalcode: "B6700",
     clientId: 4,
     active: false,
-  },
+  }
 ];
 
 async function createBranches() {

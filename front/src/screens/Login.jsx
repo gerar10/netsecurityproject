@@ -8,8 +8,11 @@ import { Container, Col, Row } from "react-bootstrap";
 import { setUser } from "../store/slices";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Login() {
+  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const initialState = {
@@ -36,7 +39,10 @@ function Login() {
       })
       .catch(() => {
         setInput(initialState);
-        alert("Email o contraseña incorrecta");
+        MySwal.fire({
+          title: <p> Contraseña incorrecta </p>,
+        })
+        // alert("Email o contraseña incorrecta");
       });
   };
 
