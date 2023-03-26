@@ -1,18 +1,10 @@
-import { React, useState } from "react";
+import { React } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
-  TextInput,
   View,
-  Alert,
-  Modal,
   Text,
-  Pressable,
-  Button,
-  Platform,
   Linking,
 } from "react-native";
-import { Icon } from "@rneui/themed";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Reportes() {

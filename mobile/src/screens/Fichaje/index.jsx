@@ -19,15 +19,11 @@ const Fichaje = ({ navigation }) => {
   const [botonSalida, setBotonSalida] = useState(false);
   const [horaEntrada, setHoraEntrada] = useState(null);
   const [horaSalida, setHoraSalida] = useState(null);
-  const event = useSelector((state) => state.event);
   const user = useSelector((state) => state.user);
-  const [horaTimeIn, setHoraTimeIn]  = useState(null)
-
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleSalida, setModalVisibleSalida] = useState(false); 
   const fecha = new Date().toISOString();
   const fechaEvento =(parseInt(fecha.slice(0,10).split("-").join("")))
-
   const [evento, setEvento] = useState([
     {
       id: null,
@@ -85,8 +81,6 @@ const Fichaje = ({ navigation }) => {
     }, [evento[0].time_in, evento[0].time_out]);
 
 
-
-
   const handleOnPress = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -131,13 +125,12 @@ const Fichaje = ({ navigation }) => {
   };
 
   return (
-
     <View style={styles.container}>
     {
       evento[0].id ? (<View style={styles.container}>
         <CardTrabajo evento={evento}/>
         {botonEntrada || horaEntrada ? (<Text style={{ fontWeight: "bold", fontSize: 20, marginTop:5 }}> Su hora de entrada es: {horaEntrada} </Text> ) : null}
-      <View style={{justifyContent:"center", alignItems:"center", marginTop:5}}>
+      <View style={{justifyContent:"center", alignItems:"center", marginTop:5} }>
             <Avatar
             size={130}
             rounded
@@ -227,8 +220,6 @@ const Fichaje = ({ navigation }) => {
       </View>): <DiaDescanso/>
      }
 </View>
- 
-
  
   );
 }
