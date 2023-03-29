@@ -2,43 +2,43 @@ const { Event } = require("../../models");
 
 const events = [
   {
-    date: "2023-03-26",
+    date: "2023-03-29",
     guardId: 1,
     shiftId: 1,
     branchId: 1,
   },
   {
-    date: "2023-03-27",
+    date: "2023-03-30",
     guardId: 1,
     shiftId: 1,
     branchId: 1,
   },
   {
-    date: "2023-03-28",
+    date: "2023-03-31",
     guardId: 1,
     shiftId: 2,
     branchId: 1,
   },
   {
-    date: "2023-03-21",
+    date: "2023-04-01",
     guardId: 1,
     shiftId: 2,
     branchId: 1,
   },
   {
-    date: "2023-03-11",
+    date: "2023-04-02",
     guardId: 1,
     shiftId: 3,
     branchId: 1,
   },
   {
-    date: "2023-03-03",
+    date: "2023-04-03",
     guardId: 1,
     shiftId: 3,
     branchId: 1,
   },
   {
-    date: "2023-03-26",
+    date: "2023-004-04",
     guardId: 2,
     shiftId: 2,
     branchId: 2,

@@ -5,7 +5,7 @@ import * as Location from "expo-location";
 import { URLBase } from "../../url/variable";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Avatar } from "@rneui/themed";
-import {Alert, Modal, StyleSheet,Text,Pressable, View, Button, Platform} from "react-native";
+import {Alert, Modal, StyleSheet,Text,Pressable, View, Button, ActivityIndicator} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CardTrabajo from "../../Commons/CardTrabajo";
 import userEvent from "../../store/event";
@@ -23,6 +23,7 @@ const Fichaje = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleSalida, setModalVisibleSalida] = useState(false); 
   const fecha = new Date().toISOString();
+  const [loading, setLoading] = useState(true);
   const fechaEvento =(parseInt(fecha.slice(0,10).split("-").join("")))
   const [evento, setEvento] = useState([
     {
@@ -124,6 +125,8 @@ const Fichaje = ({ navigation }) => {
 
   };
 
+console.log(evento);
+
   return (
     <View style={styles.container}>
     {
@@ -217,7 +220,7 @@ const Fichaje = ({ navigation }) => {
             </View>
           </Modal>
         </View>
-      </View>): <DiaDescanso/>
+      </View>) :  <ActivityIndicator size="large" color="#0000ff" />
      }
 </View>
  
