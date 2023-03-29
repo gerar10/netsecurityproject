@@ -7,8 +7,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const db = require("./config/db");
 const routes = require("./routes");
-const models = require("./models");
-
 const app = express();
 
 app.use(express.json());

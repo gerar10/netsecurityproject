@@ -2,7 +2,7 @@ const { Shift } = require("../../models");
 
 const shifts = [
   {
-    type: "Matutino",
+    type: "Noche",
     start: "00:00:00",
     end: "08:00:00",
   },

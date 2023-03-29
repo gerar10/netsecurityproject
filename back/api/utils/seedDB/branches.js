@@ -16,7 +16,7 @@ const branches = [
     street: "Pedro Lagrave",
     number: 574,
     city: "Pilar",
-    province: "Buenos Aires",
+    province: "Provincia de Buenos Aires",
     postalcode: "B1629",
     clientId: 2,
   },
