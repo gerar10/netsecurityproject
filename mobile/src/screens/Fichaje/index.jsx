@@ -3,17 +3,13 @@ import axios from "axios";
 // import MapView, { Marker, Circle } from 'react-native-maps';
 import * as Location from "expo-location";
 import { URLBase } from "../../url/variable";
-import { useDispatch, useSelector } from "react-redux";
-import { Card, Avatar } from "@rneui/themed";
+import { useSelector } from "react-redux";
+import { Avatar } from "@rneui/themed";
 import {Alert, Modal, StyleSheet,Text,Pressable, View, Button, ActivityIndicator} from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CardTrabajo from "../../Commons/CardTrabajo";
-import userEvent from "../../store/event";
-import DiaDescanso from "../../Commons/DiaDescanso";
-
 
 const fecha = new Date().toISOString();
-const Fichaje = ({ navigation }) => {
+const Fichaje = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [botonEntrada, setBotonEntrada] = useState(false);
   const [botonSalida, setBotonSalida] = useState(false);
@@ -23,7 +19,6 @@ const Fichaje = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleSalida, setModalVisibleSalida] = useState(false); 
   const fecha = new Date().toISOString();
-  const [loading, setLoading] = useState(true);
   const fechaEvento =(parseInt(fecha.slice(0,10).split("-").join("")))
   const [evento, setEvento] = useState([
     {

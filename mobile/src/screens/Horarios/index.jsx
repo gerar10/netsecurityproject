@@ -6,7 +6,7 @@ import { URLBase } from "../../url/variable";
 import React from "react";
 import { ScrollView } from "react-native";
 
-function Horarios({ navigation }) {
+function Horarios() {
   const user = useSelector((state) => state.user);
   const [empleado, setEmpleado] = useState([
     {

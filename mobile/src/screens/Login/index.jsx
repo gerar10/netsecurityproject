@@ -4,7 +4,7 @@ import images from "../../assets/images";
 import styles from "./styles";
 import { Button } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { URLBase } from "../../url/variable";
 import { userLogin } from "../../store/user";
 
@@ -12,7 +12,6 @@ function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     getPerfil();
