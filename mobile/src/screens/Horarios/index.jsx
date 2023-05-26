@@ -15,7 +15,6 @@ function Horarios() {
     },
   ]);
 
-
   useEffect(() => {
     if (user)
       URLBase.get(`/events/byGuard/${user.id}`).then((res) =>
@@ -35,31 +34,42 @@ function Horarios() {
 
   return (
     <ScrollView>
-           <View style={styles.container}>
-           <Card.Title style={{marginTop:30, fontSize:20, backgroundColor:"rgba(90, 154, 230, 1)", color:"white"}}>HORARIOS DE LA SEMANA:</Card.Title>
-           {empleado.map((dato, i) => {
-             return (
-               <Card key={i} >
-                 <Card.Title style={{color:"rgba(90, 154, 230, 1)"}}>HORARIO DEL DÍA: {dato.date}</Card.Title>
-                 <View key={i} style={styles.user}>
-                 <Text style={styles.datos}> Nombre: {dato.branchName} </Text>
-                 <Text style={styles.datos}>
-                   {" "}
-                   Dirección: {dato.branchAddress}{" "}
-                 </Text>
-                 <Text style={styles.datos}>
-                   {" "}
-                   Hora de ingreso: {dato.mobileStart}{" "}
-                 </Text>
-                 <Text style={styles.datos}>
-                   {" "}
-                   Hora de salida: {dato.mobileEnd}{" "}
-                 </Text>
-               </View>
-         </Card>
-             );
-           })}
-       </View>
+      <View style={styles.container}>
+        <Card.Title
+          style={{
+            marginTop: 30,
+            fontSize: 20,
+            backgroundColor: "rgba(90, 154, 230, 1)",
+            color: "white",
+          }}
+        >
+          HORARIOS DE LA SEMANA:
+        </Card.Title>
+        {empleado.map((dato, i) => {
+          return (
+            <Card key={i}>
+              <Card.Title style={{ color: "rgba(90, 154, 230, 1)" }}>
+                HORARIO DEL DÍA: {dato.date}
+              </Card.Title>
+              <View key={i} style={styles.user}>
+                <Text style={styles.datos}> Nombre: {dato.branchName} </Text>
+                <Text style={styles.datos}>
+                  {" "}
+                  Dirección: {dato.branchAddress}{" "}
+                </Text>
+                <Text style={styles.datos}>
+                  {" "}
+                  Hora de ingreso: {dato.mobileStart}{" "}
+                </Text>
+                <Text style={styles.datos}>
+                  {" "}
+                  Hora de salida: {dato.mobileEnd}{" "}
+                </Text>
+              </View>
+            </Card>
+          );
+        })}
+      </View>
     </ScrollView>
   );
 }
@@ -71,7 +81,6 @@ const styles = StyleSheet.create({
   },
   datos: {
     fontSize: 20,
-
   },
 });
 export default Horarios;

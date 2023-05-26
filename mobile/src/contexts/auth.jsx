@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const AuthContext = React.createContext({
   authStatus: undefined,
-  setAuthStatus: () => {}
+  setAuthStatus: () => {},
 });
 
 export const useAuthStatus = () => React.useContext(AuthContext);

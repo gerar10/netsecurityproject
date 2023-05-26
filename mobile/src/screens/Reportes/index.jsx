@@ -1,10 +1,5 @@
 import { React } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Linking,
-} from "react-native";
+import { StyleSheet, View, Text, Linking } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Reportes() {
@@ -15,7 +10,7 @@ function Reportes() {
   };
   const handleWhatsappPress = async () => {
     await Linking.openURL(
-      "https://wa.me/+542364313716?text=Necesito reportar la siguente urgencia:"
+      "https://wa.me/+542364313716?text=Necesito reportar la siguiente urgencia:"
     );
   };
 
