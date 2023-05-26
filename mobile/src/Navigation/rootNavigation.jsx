@@ -11,10 +11,9 @@ import Fichaje from "../screens/Fichaje";
 const Tab = createBottomTabNavigator();
 
 export default function RootNavigator() {
+  const Stack = createNativeStackNavigator();
 
-const Stack = createNativeStackNavigator();
-
- function HomeTabs() {
+  function HomeTabs() {
     return (
       <Tab.Navigator>
         <Tab.Screen
@@ -54,11 +53,7 @@ const Stack = createNativeStackNavigator();
           options={{
             tabBarLabel: "Avisos",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="chat"
-                color={color}
-                size={26}
-              />
+              <MaterialCommunityIcons name="chat" color={color} size={26} />
             ),
           }}
         />

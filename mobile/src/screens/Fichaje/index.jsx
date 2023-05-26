@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import MapView, { Marker, Circle } from 'react-native-maps';
 import * as Location from "expo-location";
 import { URLBase } from "../../url/variable";
 import { useSelector } from "react-redux";
 import { Avatar } from "@rneui/themed";
-import {Alert, Modal, StyleSheet,Text,Pressable, View, Button, ActivityIndicator} from "react-native";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import CardTrabajo from "../../Commons/CardTrabajo";
 
 const fecha = new Date().toISOString();
@@ -17,9 +24,9 @@ const Fichaje = () => {
   const [horaSalida, setHoraSalida] = useState(null);
   const user = useSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisibleSalida, setModalVisibleSalida] = useState(false); 
+  const [modalVisibleSalida, setModalVisibleSalida] = useState(false);
   const fecha = new Date().toISOString();
-  const fechaEvento =(parseInt(fecha.slice(0,10).split("-").join("")))
+  const fechaEvento = parseInt(fecha.slice(0, 10).split("-").join(""));
   const [evento, setEvento] = useState([
     {
       id: null,
@@ -62,39 +69,42 @@ const Fichaje = () => {
   ]);
 
   useEffect(() => {
-    URLBase.get(`/events/byDate/${fechaEvento}/${user.id}`).then((res) => {if(res.data.length) return setEvento(res.data)}).then(() => {
-      if (evento[0].time_in) {
-        const timeIn = new Date(evento[0].time_in)
-        const prueba = `${timeIn.getHours()}:${timeIn.getMinutes()}:${timeIn.getSeconds()}`
-        setHoraEntrada(prueba) 
-      }
-      if (evento[0].time_out) {
-        const timeOut = new Date(evento[0].time_out)
-        const prueba = `${timeOut.getHours()}:${timeOut.getMinutes()}:${timeOut.getSeconds()}`
-        setHoraSalida(prueba) 
-      }
-    })
-    }, [evento[0].time_in, evento[0].time_out]);
-
+    URLBase.get(`/events/byDate/${fechaEvento}/${user.id}`)
+      .then((res) => {
+        if (res.data.length) return setEvento(res.data);
+      })
+      .then(() => {
+        if (evento[0].time_in) {
+          const timeIn = new Date(evento[0].time_in);
+          const prueba = `${timeIn.getHours()}:${timeIn.getMinutes()}:${timeIn.getSeconds()}`;
+          setHoraEntrada(prueba);
+        }
+        if (evento[0].time_out) {
+          const timeOut = new Date(evento[0].time_out);
+          const prueba = `${timeOut.getHours()}:${timeOut.getMinutes()}:${timeOut.getSeconds()}`;
+          setHoraSalida(prueba);
+        }
+      });
+  }, [evento[0].time_in, evento[0].time_out]);
 
   const handleOnPress = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let locacion = await Location.getCurrentPositionAsync({}); 
-      const horario = new Date()
-      const update = await URLBase.put(`/events/checkin/${evento[0].id}`, {
-        time_in: horario,
-        position_in_latitude: locacion.coords.latitude,
-        position_in_longitude: locacion.coords.longitude,
-      })
-      setHoraEntrada(
-        `${horario.getHours()}:${horario.getMinutes()}:${horario.getSeconds()}`
-      )
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+    let locacion = await Location.getCurrentPositionAsync({});
+    const horario = new Date();
+    const update = await URLBase.put(`/events/checkin/${evento[0].id}`, {
+      time_in: horario,
+      position_in_latitude: locacion.coords.latitude,
+      position_in_longitude: locacion.coords.longitude,
+    });
+    setHoraEntrada(
+      `${horario.getHours()}:${horario.getMinutes()}:${horario.getSeconds()}`
+    );
     setBotonEntrada(true);
-    setModalVisible(!modalVisible)
+    setModalVisible(!modalVisible);
   };
 
   const handleOnPressSalida = () => {
@@ -116,111 +126,138 @@ const Fichaje = () => {
       );
     })();
     setBotonSalida(true);
-    setModalVisibleSalida(!modalVisibleSalida)
-
+    setModalVisibleSalida(!modalVisibleSalida);
   };
 
-console.log(evento);
+  console.log(evento);
 
   return (
     <View style={styles.container}>
-    {
-      evento[0].id ? (<View style={styles.container}>
-        <CardTrabajo evento={evento}/>
-        {botonEntrada || horaEntrada ? (<Text style={{ fontWeight: "bold", fontSize: 20, marginTop:5 }}> Su hora de entrada es: {horaEntrada} </Text> ) : null}
-      <View style={{justifyContent:"center", alignItems:"center", marginTop:5} }>
-            <Avatar
-            size={130}
-            rounded
-            icon={{ name: 'login', type: 'MaterialIcons' }}
-            containerStyle={{ backgroundColor: 'green' }}
-            />
-              <Text style={{fontSize:20, fontWeight:"bold"}}>{evento[0].shift.start} </Text>
-        <View style={{ margin: 20 }}>
-         
-
-          {!botonEntrada && !evento[0].time_in ? ( <Button title="Ingrese la hora de entrada" onPress={() => setModalVisible(!modalVisible)} /> ) : null}
-        </View>
-        {botonSalida || horaSalida ? (<Text style={{ fontWeight: "bold", fontSize: 20, marginTop:5 }}> Su hora de salida es: {horaSalida} </Text>) : null}
-      </View >
-            <Avatar
-            size={130}
-            rounded
-            icon={{ name: 'logout', type: 'MaterialIcons' }}
-            containerStyle={{ backgroundColor: 'red' }}
-            />
-              <Text style={{fontSize:20, fontWeight:"bold"}}>{evento[0].shift.end} </Text>
-        <View style={{ margin: 20 }}>
-
-          {!botonSalida && horaEntrada && !evento[0].time_out ? (<Button title="Ingrese la hora de salida" onPress={() => setModalVisibleSalida(!modalVisibleSalida)} /> ) : null} 
-      <View/>
-      </View>
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
+      {evento[0].id ? (
+        <View style={styles.container}>
+          <CardTrabajo evento={evento} />
+          {botonEntrada || horaEntrada ? (
+            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 5 }}>
+              {" "}
+              Su hora de entrada es: {horaEntrada}{" "}
+            </Text>
+          ) : null}
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 5,
             }}
           >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>
-                  ¿Deseas confirmar el horario de entrada?
-                </Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={handleOnPress}
-                >
-                  <Text style={styles.textStyle}>Aceptar</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
+            <Avatar
+              size={130}
+              rounded
+              icon={{ name: "login", type: "MaterialIcons" }}
+              containerStyle={{ backgroundColor: "green" }}
+            />
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {evento[0].shift.start}{" "}
+            </Text>
+            <View style={{ margin: 20 }}>
+              {!botonEntrada && !evento[0].time_in ? (
+                <Button
+                  title="Ingrese la hora de entrada"
                   onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Cerrar</Text>
-                </Pressable>
-              </View>
+                />
+              ) : null}
             </View>
-          </Modal>
-        </View>
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisibleSalida}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>
-                  ¿Deseas confirmar el horario de salida?
-                </Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={handleOnPressSalida}
-                >
-                  <Text style={styles.textStyle}>Aceptar</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisibleSalida(!modalVisibleSalida)}
-                >
-                  <Text style={styles.textStyle}>Cerrar</Text>
-                </Pressable>
+            {botonSalida || horaSalida ? (
+              <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 5 }}>
+                {" "}
+                Su hora de salida es: {horaSalida}{" "}
+              </Text>
+            ) : null}
+          </View>
+          <Avatar
+            size={130}
+            rounded
+            icon={{ name: "logout", type: "MaterialIcons" }}
+            containerStyle={{ backgroundColor: "red" }}
+          />
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            {evento[0].shift.end}{" "}
+          </Text>
+          <View style={{ margin: 20 }}>
+            {!botonSalida && horaEntrada && !evento[0].time_out ? (
+              <Button
+                title="Ingrese la hora de salida"
+                onPress={() => setModalVisibleSalida(!modalVisibleSalida)}
+              />
+            ) : null}
+            <View />
+          </View>
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>
+                    ¿Deseas confirmar el horario de entrada?
+                  </Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={handleOnPress}
+                  >
+                    <Text style={styles.textStyle}>Aceptar</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+                    <Text style={styles.textStyle}>Cerrar</Text>
+                  </Pressable>
+                </View>
               </View>
-            </View>
-          </Modal>
+            </Modal>
+          </View>
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisibleSalida}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>
+                    ¿Deseas confirmar el horario de salida?
+                  </Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={handleOnPressSalida}
+                  >
+                    <Text style={styles.textStyle}>Aceptar</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModalVisibleSalida(!modalVisibleSalida)}
+                  >
+                    <Text style={styles.textStyle}>Cerrar</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+          </View>
         </View>
-      </View>) :  <ActivityIndicator size="large" color="#0000ff" />
-     }
-</View>
- 
+      ) : (
+        <ActivityIndicator size="large" color="#0000ff" />
+      )}
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -270,11 +307,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    width:150,
+    width: 150,
   },
   modalText: {
     marginBottom: 15,
-
   },
 });
 
