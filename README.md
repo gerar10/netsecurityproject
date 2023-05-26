@@ -122,7 +122,7 @@ Deberas complir los siguientes pre-requisitos para poder utilizar este proyecto
 
 1. Clona el repositorio en tu local
    ```sh
-   git clone https://github.com/GabrielPenise/netglobal
+   git clone https://github.com/gerar10/netsecurityproject
    ```
 2. Instala las dependencias NPM (respectivamente en carpeta back y carpeta front)
    ```sh
